@@ -1,0 +1,16 @@
+[
+{
+  "modid": "antihitfriend",
+  "name": "AntiHitFriends",
+  "description": "Prevents hitting designated friends in-game",
+  "version": "1.0",
+  "mcversion": "1.8.9",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Turki"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

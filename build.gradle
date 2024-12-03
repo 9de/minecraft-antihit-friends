@@ -1,0 +1,65 @@
+buildscript {
+    repositories {
+        mavenCentral() // Use mavenCentral instead of jcenter (jcenter is deprecated)
+        maven {
+            name = "forge"
+            url = "https://maven.minecraftforge.net/" // Use HTTPS instead of HTTP
+        }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
+    }
+}
+
+apply plugin: 'net.minecraftforge.gradle.forge'
+
+version = "1.0"
+group = "com.AntiHit.YourFriend"
+archivesBaseName = "antihitfriend"
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+minecraft {
+    version = "1.8.9-11.15.1.2318-1.8.9"
+    runDir = "run"
+    mappings = "stable_20"
+    
+    // Add this for better IDE support
+    makeObfSourceJar = false
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Add your dependencies here if needed
+}
+
+processResources {
+    // This will ensure that this task is redone when the versions change
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+
+    // Replace stuff in mcmod.info, nothing else
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+        
+        // Replace version and mcversion
+        expand(
+            'version': project.version,
+            'mcversion': project.minecraft.version
+        )
+    }
+    
+    // Copy everything else that's not the mcmod.info
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+}
+
+// Add this for better compatibility
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
